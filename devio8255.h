@@ -28,6 +28,16 @@ int addr1[2] = { A0, A1 } ;
 #define rPortB 2
 #define rPortC 3
 
+#define D0a mcp.pb0
+#define D1a mcp.pb1
+#define D2a mcp.pb2
+#define D3a mcp.pb3
+#define D4a mcp.pb4
+#define D5a mcp.pb5
+#define D6a mcp.pb6
+#define D7a mcp.pb7
+
+int dataBus [8] = { D0a, D1a, D2a, D3a, D4a, D5a, D5a, D6a, D7a }
 
 void wrCtrlReg(int portId,  int data1){
   int b1;
@@ -43,4 +53,17 @@ for (int i=0; i<=1; i++){
   tmp = tmp << 1;
 }
 
+// write ctrl data
+for (int i=0; i<=7; i++) {
+    b1 = data1 & 0x1;
+    digitalWrite(dataBus[i], b1);
+    data1 = data1 << 1;
+}
 
+digitalWrite(WR, LOW);
+delay(1);
+digitalWrite(WR, HIGH);
+  
+// end io function
+digitalWrite(portCS[portId], LOW);
+}
