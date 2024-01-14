@@ -83,13 +83,14 @@ for (int i=0; i<=1; i++){
 };
 
 // read reg data
+digitalWrite(RD, LOW); 
+  
 for (int i=0; i<=7; i++) {
     b1 = digitalRead(dataBus[i]);
     data1 = data1 + b1;
     data1 = data1 << 1;
 };
-digitalWrite(RD, LOW);  
-delay(1);
+
 digitalWrite(RD, HIGH);
   
 // end io function
