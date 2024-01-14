@@ -50,14 +50,14 @@ digitalWrite(portCS[portId], HIGH);
 for (int i=0; i<=1; i++){
   b1 = tmp & 0x1;
   digitalWrite(addr1[i], b1);
-  tmp = tmp << 1;
+  tmp = tmp >> 1;
 }
 
-// write ctrl data
+// write reg data
 for (int i=0; i<=7; i++) {
     b1 = data1 & 0x1;
     digitalWrite(dataBus[i], b1);
-    data1 = data1 << 1;
+    data1 = data1 >> 1;
 }
 
 digitalWrite(WR, LOW);
@@ -68,9 +68,10 @@ digitalWrite(WR, HIGH);
 digitalWrite(portCS[portId], LOW);
 }
 
-void wrDataReg(int portId, int regID, int data1){
+int rdDataReg(int portId, int regID){
   int b1;
-
+  int data1 = 0;
+  
 // select port chip
 digitalWrite(portCS[portId], HIGH);
 
@@ -78,14 +79,44 @@ digitalWrite(portCS[portId], HIGH);
 for (int i=0; i<=1; i++){
   b1 = regID & 0x1;
   digitalWrite(addr1[i], b1);
-  regID = regID << 1;
+  regID = regID >> 1;
+};
+
+// read reg data
+for (int i=0; i<=7; i++) {
+    b1 = digitalRead(dataBus[i]);
+    data1 = data1 + b1;
+    data1 = data1 << 1;
+};
+digitalWrite(RD, LOW);  
+delay(1);
+digitalWrite(RD, HIGH);
+  
+// end io function
+digitalWrite(portCS[portId], LOW);
+
+return(data1);
 }
 
-// write ctrl data
+void wrDataReg(int portId, int regID  int data1){
+  int b1;
+  int tmp = regID ;
+
+// select port chip
+digitalWrite(portCS[portId], HIGH);
+
+// select port register
+for (int i=0; i<=1; i++){
+  b1 = tmp & 0x1;
+  digitalWrite(addr1[i], b1);
+  tmp = tmp >> 1;
+}
+
+// write reg data
 for (int i=0; i<=7; i++) {
     b1 = data1 & 0x1;
     digitalWrite(dataBus[i], b1);
-    data1 = data1 << 1;
+    data1 = data1 >> 1;
 }
 
 digitalWrite(WR, LOW);
@@ -96,8 +127,9 @@ digitalWrite(WR, HIGH);
 digitalWrite(portCS[portId], LOW);
 }
 
-void portReset( int portId) {
-  digitalWrite(portReset[portId],HIGH);
+void portReset( int portID) {
+  digitalWrite(portReset[portID], HIGH);
   delay(1);
-  digitalWrite(portReset[portId], LOW);
+  digitalWrite(portReset[portID], LOW);
 }
+
