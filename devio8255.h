@@ -14,10 +14,10 @@ extern Adafruit_MCP23X17 mcp;
 #define port1cs mcp.pa5
 #define port2reset mcp.pa6
 #define port2cs mcp.pa7
-#define A0 mcp.p2
-#define A1 mcp.p3
+#define A0 mcp.pa2
+#define A1 mcp.pa3
 #define RD mcp.pa0
-#define WR mcp.p1
+#define WR mcp.pa1
 
 int portReset[2]= { port1reset, port2reset } ;
 int portCS[2] = { port1cs, port2cs } ;
