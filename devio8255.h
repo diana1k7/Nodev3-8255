@@ -51,14 +51,14 @@ for (int i=0; i<=1; i++){
   b1 = tmp & 0x1;
   digitalWrite(addr1[i], b1);
   tmp = tmp >> 1;
-}
+};
 
 // write reg data
 for (int i=0; i<=7; i++) {
     b1 = data1 & 0x1;
     digitalWrite(dataBus[i], b1);
     data1 = data1 >> 1;
-}
+};
 
 digitalWrite(WR, LOW);
 delay(1);
@@ -111,14 +111,14 @@ for (int i=0; i<=1; i++){
   b1 = tmp & 0x1;
   digitalWrite(addr1[i], b1);
   tmp = tmp >> 1;
-}
+};
 
 // write reg data
 for (int i=0; i<=7; i++) {
     b1 = data1 & 0x1;
     digitalWrite(dataBus[i], b1);
     data1 = data1 >> 1;
-}
+};
 
 digitalWrite(WR, LOW);
 delay(1);
