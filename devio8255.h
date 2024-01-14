@@ -67,3 +67,37 @@ digitalWrite(WR, HIGH);
 // end io function
 digitalWrite(portCS[portId], LOW);
 }
+
+void wrDataReg(int portId, int regID, int data1){
+  int b1;
+
+// select port chip
+digitalWrite(portCS[portId], HIGH);
+
+// select port register
+for (int i=0; i<=1; i++){
+  b1 = regID & 0x1;
+  digitalWrite(addr1[i], b1);
+  regID = regID << 1;
+}
+
+// write ctrl data
+for (int i=0; i<=7; i++) {
+    b1 = data1 & 0x1;
+    digitalWrite(dataBus[i], b1);
+    data1 = data1 << 1;
+}
+
+digitalWrite(WR, LOW);
+delay(1);
+digitalWrite(WR, HIGH);
+  
+// end io function
+digitalWrite(portCS[portId], LOW);
+}
+
+void portReset( int portId) {
+  digitalWrite(portReset[portId],HIGH);
+  delay(1);
+  digitalWrite(portReset[portId], LOW);
+}
