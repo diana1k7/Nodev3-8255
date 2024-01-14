@@ -37,7 +37,7 @@ int addr1[2] = { A0, A1 } ;
 #define D6a mcp.pb6
 #define D7a mcp.pb7
 
-int dataBus [8] = { D0a, D1a, D2a, D3a, D4a, D5a, D5a, D6a, D7a }
+int dataBus [8] = { D0a, D1a, D2a, D3a, D4a, D5a, D6a, D7a }
 
 void wrCtrlReg(int portId,  int data1){
   int b1;
